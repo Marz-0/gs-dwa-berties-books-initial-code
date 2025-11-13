@@ -8,8 +8,28 @@
     <h1>Search <%=shopData.shopName%></h1>
     <form action="/books/search_result" method="GET">
       <p>What book do you want?</p>
-      <input id="search-box" type="text" name="search_text">
+      <input id="search-box" type="text" name="search_text" aria-describedby="search-error" required>
       <input type="submit" value="Search" >
+      <div id="search-error" role="alert" style="color:#b00020;margin-top:6px;display:none;font-size:0.95em;"></div>
     </form>
+    <script>
+      (function(){
+        var form = document.querySelector('form[action="/books/search_result"]');
+        var input = document.getElementById('search-box');
+        var err = document.getElementById('search-error');
+        form.onsubmit = function(e){
+          var v = (input.value || '').trim();
+          if (!v){
+            e.preventDefault();
+            err.textContent = 'Please enter a book title to search for.';
+            err.style.display = 'block';
+            input.focus();
+            return;
+          }
+          input.value = v; 
+        };
+        input.oninput = function(){ err.style.display = 'none'; };
+      })();
+    </script>
   </body>
 </html>

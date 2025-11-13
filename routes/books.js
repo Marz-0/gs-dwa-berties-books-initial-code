@@ -12,12 +12,11 @@ router.get('/search_result', function (req, res, next) {
         return res.redirect('/books/search');
     }
 
-    // Advanced search: partial, case-insensitive match
     const sql = "SELECT * FROM books WHERE LOWER(name) LIKE LOWER(?)";
     const param = '%' + q + '%';
     db.query(sql, [param], (err, result) => {
         if (err) return next(err);
-        // render the existing view file (no underscore)
+        // render the existing view file
         res.render('search_result.ejs', { books: result, searchTerm: q });
     });
 });
