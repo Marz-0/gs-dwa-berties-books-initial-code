@@ -20,27 +20,39 @@ function handleLogin(req, res, next) {
     return res.send('Login failed: missing username/email or password')
   }
 
+  // log login attempt
+  function logAttempt(idf, success, reason, cb) {
+    try {
+      const ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.ip || '').toString()
+      const insert = "INSERT INTO login_audit (identifier, success, reason, ip) VALUES (?,?,?,?)"
+      db.query(insert, [idf, success ? 1 : 0, reason, ip], cb)
+    } catch (e) {
+      // if logging fails, don't block authentication flow
+      if (cb) cb(e)
+    }
+  }
+
   // find user by username
   const sql = "SELECT * FROM users WHERE username = ? LIMIT 1"
   db.query(sql, [identifier], (err, results) => {
     if (err) return next(err)
     if (!results || results.length === 0) {
-      return res.send('Login failed: user not found')
+      return logAttempt(identifier, false, 'user not found', () => res.send('Login failed: user not found'))
     }
 
     const user = results[0]
     const hashed = user.password || user.hashedPassword || user.hashed_password || user.pass
     if (!hashed) {
-      return res.send('Login failed: no password stored for this user')
+      return logAttempt(identifier, false, 'no password stored', () => res.send('Login failed: no password stored for this user'))
     }
 
     bcrypt.compare(plainPassword, hashed, (err, match) => {
       if (err) return next(err)
       if (match) {
         const name = user.first || user.username || user.email || 'user'
-        res.send('Login successful. Welcome ' + name + '!')
+        return logAttempt(identifier, true, 'success', () => res.send('Login successful. Welcome ' + name + '!'))
       } else {
-        res.send('Login failed: incorrect password')
+        return logAttempt(identifier, false, 'incorrect password', () => res.send('Login failed: incorrect password'))
       }
     })
   })
@@ -97,6 +109,15 @@ router.get('/list', function(req, res, next) {
       return next(err)
     }
     res.render('userslist.ejs', { users: result })
+  })
+})
+
+// route to show audit history
+router.get('/audit', function(req, res, next) {
+  const sql = "SELECT id, identifier, success, reason, ip, created_at FROM login_audit ORDER BY created_at DESC"
+  db.query(sql, (err, rows) => {
+    if (err) return next(err)
+    res.render('users_audit.ejs', { audits: rows })
   })
 })
 

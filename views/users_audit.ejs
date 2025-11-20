@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Login Audit - <%= shopData.shopName %></title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <div class="panel">
+      <h1>Login Audit</h1>
+      <table class="audit-table">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Identifier</th>
+            <th>Result</th>
+            <th>Reason</th>
+            <th>IP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (Array.isArray(audits) && audits.length) { %>
+            <% audits.forEach(function(row) { %>
+              <tr>
+                <td><%= row.created_at %></td>
+                <td><%= row.identifier %></td>
+                <td><%= row.success ? 'Success' : 'Failure' %></td>
+                <td><%= row.reason %></td>
+                <td><%= row.ip %></td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr><td colspan="5">No audit records found.</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
