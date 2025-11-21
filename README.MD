@@ -8,3 +8,10 @@ To install and run:
 
 npm install
 node index.js
+
+
+
+
+dotenv
+
+In this app we use the dotenv module for our database security 

@@ -11,13 +11,9 @@
             <h2>Registered users</h2>
 
             <ul class="book-list">
-                <% if (Array.isArray(users) && users.length) { %>
-                    <% users.forEach(function(user) { %>
-                        <li><%= user.first %> <%= user.last %> &ndash; <%= user.email %></li>
-                    <% }) %>
-                <% } else { %>
-                    <li>No users found.</li>
-                <% } %>
+<% users.forEach(function(user){ %>
+            <li><strong><%= user.username %></strong> - <%= user.first %> <%= user.last %> (<%= user.email %>)</li>
+            <% }) %>
             </ul>
         </div>
     </body>

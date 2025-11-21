@@ -103,7 +103,7 @@ router.post('/registered', function (req, res, next) {
 
 // route to list all users
 router.get('/list', function(req, res, next) {
-  let sqlquery = "SELECT id, first, last, email FROM users"
+  let sqlquery = "SELECT id, username, first, last, email FROM users"
   db.query(sqlquery, (err, result) => {
     if (err) {
       return next(err)
