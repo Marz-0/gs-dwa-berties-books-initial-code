@@ -101,7 +101,7 @@ Failure reasons tracked: - Missing credentials\
 
 ------------------------------------------------------------------------
 
-## 🔐 Environment Variables (dotenv)
+## Environment Variables (dotenv)
 
 The project uses the `dotenv` package to load sensitive configuration:
 
