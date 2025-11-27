@@ -95,7 +95,7 @@ Failure reasons currently include: missing credentials, user not found, no passw
 
 ## Validation
 
-Validation has been added in text boxes where uses must enter text or information to add to the database.
+Validation has been added in text boxes where uses must enter text or information to add to the database. We use the express-validator module to validate fields. This is done using "checks" based on each feild.
 In my code, I have added validation to:
 
 - The register page checks for:
