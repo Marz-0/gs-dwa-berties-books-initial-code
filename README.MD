@@ -46,9 +46,10 @@ SOURCE insert_test_data.sql;
 
 Create a `.env` file:
 
-    BB_USER=berties_books_app
-    BB_PASSWORD=qwertyuiop
-    BB_DATABASE=berties_books
+    BB_HOST='localhost'
+    BB_USER='berties_books_app'
+    BB_PASSWORD='qwertyuiop'
+    BB_DATABASE='berties_books'
 
 `.env` is git-ignored for security.
 
@@ -76,6 +77,8 @@ The application will be available at `http://localhost:8000` unless you change t
 - User registration with bcrypt password hashing
 - Login system with authentication
 - View all registered users (`/users/list`)
+- log in and log out system
+- stop users from accessing certain parts of the website, e.g user lists and adding a book without having an account. Users need to log in first to access these links/pages.
 
 ### Login Audit Logging
 
@@ -86,8 +89,6 @@ Login attempts (successful and failed) are recorded to the `login_audit` table. 
 - The audit history is exposed at `/users/audit` and rendered by `views/users_audit.ejs`.
 
 Failure reasons currently include: missing credentials, user not found, no password stored, incorrect password.
-
-
 
 
 ## Validation
