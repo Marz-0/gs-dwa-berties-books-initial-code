@@ -34,11 +34,11 @@ router.get('/list', function(req, res, next) {
         });
 });
 
-router.get('../addbook', redirectLogin, function (req, res, next) {
+router.get('/addbook', redirectLogin, function (req, res, next) {
     res.render('addbook.ejs')
 });
 
-router.post('/bookadded', redirectLogin, function (req, res, next) {
+router.post('../bookadded', redirectLogin, function (req, res, next) {
     // saving data in database
     let sqlquery = "INSERT INTO books (name, price) VALUES (?,?)"
     // execute sql query
