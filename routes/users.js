@@ -111,15 +111,15 @@ router.get('/audit', redirectLogin, function (req, res, next) {
 })
 
 // Logout route for users (accessible at /users/logout)
-router.get('/logout', redirectLogin, (req, res) => {
-  try {
-    req.session.destroy(() => {
-      res.redirect('/')
+    router.get('/logout', redirectLogin, (req,res) => {
+        req.session.destroy(err => {
+        if (err) {
+          return res.redirect('./')
+        }
+        res.send('you are now logged out. <a href='+'./'+'>Home</a>');
+        })
     })
-  } catch (e) {
-    res.redirect('/')
-  }
-})
+
 
 
 // Export the router object so index.js can access it
