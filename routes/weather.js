@@ -15,7 +15,7 @@ router.post('/', function (req, res, next) {
     }
 });
 
-router.get("/result", function (req, res, next) {
+router.get("result", function (req, res, next) {
     let apiKey = "fda7b7c7fbf03549ceae9e08eccf7c8e";
     let city = req.sanitize(req.query.city);
     let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
