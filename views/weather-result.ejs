@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Weather in <%= weather.name %></title>
+        <link rel="stylesheet" type="text/css" href="/main.css" />
+        <link rel="stylesheet" type="text/css" href="/weather.css" />
+    </head>
+    <body>
+        <div class="weather-container">
+            <h1>Weather Result</h1>
+
+            <div class="weather-card">
+                <div class="weather-meta">
+                    <div>
+                        <div class="weather-header"><%= weather.name %>, <%= weather.sys.country %></div>
+                        <% if (weather.weather && weather.weather.length > 0) { %>
+                        <div class="weather-description"><%= weather.weather[0].description %></div>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="weather-temp"><%= Math.round(weather.main.temp) %>°C</div>
+
+                <div class="weather-details">
+                    <div class="weather-detail-item"><strong>Humidity:</strong> <%= weather.main.humidity %>%</div>
+                    <div class="weather-detail-item"><strong>Wind Speed:</strong> <%= weather.wind.speed %> m/s</div>
+                    <div class="weather-detail-item"><strong>Pressure:</strong> <%= weather.main.pressure %> hPa</div>
+                    <div class="weather-detail-item"><strong>Feels Like:</strong> <%= Math.round(weather.main.feels_like) %>°C</div>
+                </div>
+            </div>
+
+            <div style="margin-top:14px">
+                <a href="/weather" class="back-link">Check Another City</a>
+                <a href="/" class="back-link" style="margin-left:8px">Home</a>
+            </div>
+        </div>
+    </body>
+</html>

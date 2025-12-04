@@ -138,7 +138,7 @@ router.get('/audit', redirectLogin, function (req, res, next) {
         if (err) {
           return res.redirect('./')
         }
-        res.send('you are now logged out. <a href='+'/'+'>Home</a>');
+        res.send('you are now logged out. <a href="/">Home</a>');
         })
     })
 
