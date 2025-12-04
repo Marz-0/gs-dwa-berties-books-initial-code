@@ -11,14 +11,6 @@
 
             <div class="weather-card">
                 <div class="weather-meta">
-                    <% if (weather.weather && weather.weather.length > 0) { %>
-                    <img
-                        src="http://openweathermap.org/img/w/<%= weather.weather[0].icon %>.png"
-                        alt="Weather icon"
-                        class="weather-icon"
-                    />
-                    <% } %>
-
                     <div>
                         <div class="weather-header"><%= weather.name %>, <%= weather.sys.country %></div>
                         <% if (weather.weather && weather.weather.length > 0) { %>
