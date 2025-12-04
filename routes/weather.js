@@ -26,7 +26,7 @@ router.get("/result", function (req, res, next) {
         } else {
             var weather = JSON.parse(body);
             if (weather !== undefined && weather.main !== undefined) {
-                res.render("weather-result.ejs", { weather: weather });
+                res.render("./weather-result.ejs", { weather: weather });
             } else {
                 res.send("No data found");
             }
