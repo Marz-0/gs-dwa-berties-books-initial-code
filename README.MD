@@ -125,7 +125,6 @@ The following pages have been sanitized:
     - First name
     - Fast name
     - Email
-    - Hashed password 
 
 As these are output onto the page once users have registered
 
@@ -133,6 +132,52 @@ As these are output onto the page once users have registered
     - Book name
     - Price (Although this is not needed, as it forces users to only input a number)
 
+
+
+
+## API 
+
+In this Application, we use an API for get data of the live weather in Cities using OpenWeatherMap
+
+We also create our own API to get data of books in our application. These books are stored in our database. 
+
+### List all books:
+
+At the end of the link, we can add:
+
+/api/books 
+
+which returns a list of all books if no keyword is added
+
+
+### Searching using API:
+
+/api/books?search=  (followed by the book name) 
+
+This will filter books by the name
+
+/api/books?search=world 
+
+This will search all books that have "world" in the name
+
+
+### Price range: This feature allows a parameter to add a price range: 
+
+/api/books?minprice=5&max_price=10
+
+In this example, the URL will search for books that are priced between £5 and £10
+
+
+### Sort option using API
+
+/api/books?sort=name
+
+This allows a parameter to specify how to sort the results by name
+
+
+/api/books?sort=price
+
+This allows a parameter to specify how to sort the results by price
 
 
 ------------------------------------------------------------------------
