@@ -3,55 +3,48 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Weather - <%= shopData.shopName %></title>
+	<title>Weather</title>
 	<link rel="stylesheet" href="/main.css">
-	<link rel="stylesheet" href="/weather.css">
+	<style>
+		.weather-card { max-width: 420px; margin: 1rem auto; padding: 1rem; border: 1px solid #ddd; border-radius: 6px; background: #fff; }
+		.weather-row { display:flex; align-items:center; gap:1rem }
+		.temp { font-size: 2rem; font-weight:600 }
+	</style>
 </head>
 <body>
-	<div class="weather-container">
+	<main class="container">
 		<h1>Current Weather</h1>
 		<p>Enter a city to see the current weather.</p>
 
-		<form action="/weather/result" method="get" class="weather-form">
+		<form action="/weather" method="post">
 			<label for="city">City:</label>
 			<input id="city" name="city" type="text" placeholder="e.g. London" required>
-			<button type="submit" class="back-link" style="margin-left:8px; padding:8px 12px">Get Weather</button>
+			<button type="submit">Get Weather</button>
 		</form>
 
-		<% if (error) { %>
+		<% if (typeof error !== 'undefined' && error) { %>
 			<div class="alert alert-error" style="margin-top:10px"><strong>Error:</strong> <%= error %></div>
 		<% } %>
 
-		<% if (weather) { %>
-			<div class="weather-card" style="margin-top:12px">
-				<div class="weather-meta">
+		<% if (typeof weather !== 'undefined' && weather) { %>
+			<div class="weather-card">
+				<div class="weather-row">
 					<div>
-						<div class="weather-header"><%= weather.city %><% if (weather.country) { %>, <%= weather.country %><% } %></div>
-						<div class="weather-description"><%= weather.description %></div>
+						<h2><%= weather.city %><% if (weather.country) { %>, <%= weather.country %><% } %></h2>
+						<div class="description"><%= weather.description %></div>
 					</div>
-
 					<% if (weather.icon) { %>
-						<img src="https://openweathermap.org/img/wn/<%= weather.icon %>@2x.png" alt="icon" class="weather-icon">
+						<img src="https://openweathermap.org/img/wn/<%= weather.icon %>@2x.png" alt="icon">
 					<% } %>
 				</div>
-
-				<div class="weather-temp"><%= weather.temp %>°C</div>
-
-				<div class="weather-details">
-					<div class="weather-detail-item"><strong>Feels like:</strong> <%= weather.feels_like %>°C</div>
-					<% if (weather.humidity) { %>
-						<div class="weather-detail-item"><strong>Humidity:</strong> <%= weather.humidity %>%</div>
-					<% } %>
-					<% if (weather.wind) { %>
-						<div class="weather-detail-item"><strong>Wind:</strong> <%= weather.wind %> m/s</div>
-					<% } %>
+				<div style="margin-top:0.5rem">
+					<span class="temp"><%= weather.temp %>°C</span>
+					<span style="margin-left:1rem;color:#666">Feels like <%= weather.feels_like %>°C</span>
 				</div>
 			</div>
 		<% } %>
 
-		<div style="margin-top:14px">
-			<a href="/" class="back-link">Back to home</a>
-		</div>
-	</div>
+		<p><a href="/">Back to home</a></p>
+	</main>
 </body>
 </html>
